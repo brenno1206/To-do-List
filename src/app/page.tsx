@@ -23,7 +23,11 @@ export default function Home() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks]);
 
-  function addNewTask() {
+  /**
+   * Add new Task to the list if the name isn't empty
+   * @returns
+   */
+  function addNewTask(): void {
     if (inputValue.trim() === '') return;
     const newTask: TaskPrototype = {
       index: crypto.randomUUID(),
@@ -34,12 +38,21 @@ export default function Home() {
     setInputValue('');
     setDescriptionValue('');
   }
-
-  function removeTask(idToRemove: string): void {
-    const updatedTasks = tasks.filter((task) => task.index !== idToRemove);
+  /**
+   * Remove a task by id
+   * @param id
+   */
+  function removeTask(id: string): void {
+    const updatedTasks = tasks.filter((task) => task.index !== id);
     setTasks(updatedTasks);
   }
 
+  /**
+   * Update a task (Name or Description) by id
+   * @param id
+   * @param newName
+   * @param newDescription
+   */
   function updateTask(id: string, newName?: string, newDescription?: string) {
     if (newName || newDescription) {
       if (newName && newDescription) {
@@ -52,6 +65,10 @@ export default function Home() {
     }
   }
 
+  /**
+   * Press Enter to save the Task
+   * @param event
+   */
   function handleKeyDown(
     event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void {
@@ -89,7 +106,6 @@ export default function Home() {
             className="w-full mt-2 focus:outline-none text-sm text-[#5e4b45] h-16 resize-none"
           />
         </div>
-
         <div className="w-full">
           {tasks.map((task) => (
             <Task

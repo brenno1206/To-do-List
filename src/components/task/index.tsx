@@ -8,6 +8,9 @@ import {
 } from '@tabler/icons-react';
 import { useState } from 'react';
 
+/**
+ * Set onRemove and onUpdate to the Task's props
+ */
 interface TaskProps extends TaskPrototype {
   onRemove: (id: string) => void;
   onUpdate?: (id: string, newName?: string, newDescription?: string) => void;
@@ -23,9 +26,15 @@ export function Task({
   const [isChecked, setIsChecked] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
+  /**
+   * Check if the box of the task name is checked
+   */
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+  /**
+   * Check if the task is Expanded
+   */
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
