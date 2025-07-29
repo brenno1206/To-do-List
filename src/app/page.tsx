@@ -1,57 +1,108 @@
 'use client';
+
 import { Task } from '@/components/task';
 import { TaskPrototype } from '@/types/tasks';
 import { IconCirclePlus } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useState, KeyboardEvent, useEffect } from 'react';
+
+const LOCAL_STORAGE_KEY = 'minhas-tasks';
 
 export default function Home() {
   const [tasks, setTasks] = useState<TaskPrototype[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [idx, setIdx] = useState(0);
+  const [descriptionValue, setDescriptionValue] = useState('');
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
 
   function addNewTask() {
-    if (!inputValue) return;
-    const newTasks = tasks;
-    newTasks.push({
-      index: idx.toString(),
-      name: inputValue,
-    });
-
-    setIdx(idx + 1);
-    setTasks(newTasks);
+    if (inputValue.trim() === '') return;
+    const newTask: TaskPrototype = {
+      index: crypto.randomUUID(),
+      name: inputValue.trim(),
+      description: descriptionValue.trim(),
+    };
+    setTasks([...tasks, newTask]);
     setInputValue('');
+    setDescriptionValue('');
+  }
+
+  function removeTask(idToRemove: string): void {
+    const updatedTasks = tasks.filter((task) => task.index !== idToRemove);
+    setTasks(updatedTasks);
+  }
+
+  function updateTask(id: string, newName?: string, newDescription?: string) {
+    if (newName || newDescription) {
+      if (newName && newDescription) {
+        //TODO att nome e descriçao
+      } else if (newName) {
+        //TODO att nome
+      } else {
+        //TODO att descricao
+      }
+    }
+  }
+
+  function handleKeyDown(
+    event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      addNewTask();
+    }
   }
 
   return (
     <>
       <main className="mt-30 flex flex-col">
-        <div className="mb-10 border-b-1 flex items-center  px-3 py-2 w-full max-w-sm mx-auto overflow-clip shadow-xl shadow-gray-200 ">
-          <input
-            type="text"
-            id="taskInput"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Digite uma nova tarefa"
-            className="w-full focus:outline-none px-2 text-[#5e4b45]"
+        <div className="mb-10 w-full max-w-sm mx-auto p-4 border rounded-lg shadow-xl shadow-gray-200 bg-white">
+          <div className="flex items-center border-b-2 pb-2">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Título da tarefa"
+              className="w-full focus:outline-none text-[#5e4b45]"
+            />
+            <button
+              onClick={addNewTask}
+              className="text-[#5e4b45] hover:text-green-700"
+            >
+              <IconCirclePlus aria-label="Adicionar Tarefa" />
+            </button>
+          </div>
+          <textarea
+            value={descriptionValue}
+            onChange={(e) => setDescriptionValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Descrição (opcional)"
+            className="w-full mt-2 focus:outline-none text-sm text-[#5e4b45] h-16 resize-none"
           />
-          <button onClick={addNewTask}>
-            <IconCirclePlus aria-label="pesquisa" />
-          </button>
         </div>
+
         <div className="w-full">
-          {tasks.map((task, index) => (
-            <Task key={index} name={task.name} index={task.index} />
+          {tasks.map((task) => (
+            <Task
+              key={task.index}
+              index={task.index}
+              name={task.name}
+              description={task.description}
+              onRemove={removeTask}
+              onUpdate={updateTask}
+            />
           ))}
         </div>
       </main>
     </>
   );
 }
-
-/**
- *
- * ________ +
- * [ ] titulo       -(remover)
- * descricao (aumenta qnd hover) ()update
- *
- */

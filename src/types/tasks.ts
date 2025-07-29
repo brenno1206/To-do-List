@@ -4,4 +4,5 @@ export interface TasksPrototype {
 export interface TaskPrototype {
   index: string;
   name: string;
+  description?: string;
 }
