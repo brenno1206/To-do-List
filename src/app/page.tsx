@@ -53,16 +53,14 @@ export default function Home() {
    * @param newName
    * @param newDescription
    */
-  function updateTask(id: string, newName?: string, newDescription?: string) {
-    if (newName || newDescription) {
-      if (newName && newDescription) {
-        //TODO att nome e descriçao
-      } else if (newName) {
-        //TODO att nome
-      } else {
-        //TODO att descricao
+  function updateTask(id: string, newName: string, newDescription: string) {
+    const updatedTasks = tasks.map((task) => {
+      if (task.index === id) {
+        return { ...task, name: newName, description: newDescription };
       }
-    }
+      return task;
+    });
+    setTasks(updatedTasks);
   }
 
   /**
