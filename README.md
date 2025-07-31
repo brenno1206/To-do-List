@@ -1,12 +1,12 @@
-# To-Do List App 📝
+# To-Do List App
 
 Um aplicativo simples e moderno de lista de tarefas construído com Next.js, React e TypeScript. Permite que os usuários gerenciem suas tarefas diárias de forma eficiente, salvando os dados diretamente no navegador através do `localStorage`.
 
-![Placeholder para Screenshot da Aplicação](https://via.placeholder.com/800x450.png?text=Insira+um+Screenshot+do+App+Aqui)
+![Video de uso da aplicacao](https://)
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - **Adicionar Tarefas**: Crie novas tarefas com um título e uma descrição opcional.
 - **Editar Tarefas**: Modifique o título e a descrição de tarefas existentes.
@@ -18,7 +18,7 @@ Um aplicativo simples e moderno de lista de tarefas construído com Next.js, Rea
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
@@ -28,7 +28,7 @@ Um aplicativo simples e moderno de lista de tarefas construído com Next.js, Rea
 
 ---
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 Siga os passos abaixo para rodar o projeto em seu ambiente local.
 
@@ -42,7 +42,7 @@ Siga os passos abaixo para rodar o projeto em seu ambiente local.
 1.  Clone o repositório:
 
     ```bash
-    git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+    git clone https://github.com/brenno1206/To-do-List.git
     ```
 
 2.  Navegue até o diretório do projeto:
@@ -60,12 +60,12 @@ Siga os passos abaixo para rodar o projeto em seu ambiente local.
 
 Inicie o servidor de desenvolvimento:
 
-````bash
+```bash
 npm run dev
-
+```
 ---
 
-## 🗺️ Roadmap e Futuras Implementações
+## Futuras Implementações
 
 O projeto atual utiliza `localStorage` para simplicidade. Os próximos passos envolvem a implementação de um backend robusto com banco de dados e autenticação de usuários.
 
@@ -73,9 +73,8 @@ O projeto atual utiliza `localStorage` para simplicidade. Os próximos passos en
 
 Para garantir que cada usuário tenha sua própria lista de tarefas privada, a autenticação será adicionada.
 
--   **Tecnologia Sugerida**: **NextAuth.js** ou **Clerk**.
 -   **Plano de Ação**:
-    1.  Integrar um provedor de autenticação (como Google, GitHub ou email/senha).
+    1.  Integrar um provedor de autenticação (email/senha).
     2.  Criar rotas de login, cadastro e logout.
     3.  Proteger as páginas da aplicação para que apenas usuários autenticados possam acessar e gerenciar suas tarefas.
     4.  Associar cada tarefa a um `userId`.
@@ -84,29 +83,8 @@ Para garantir que cada usuário tenha sua própria lista de tarefas privada, a a
 
 Para substituir o `localStorage` e permitir que os dados sejam persistidos de forma segura e acessíveis de qualquer dispositivo, um banco de dados MySQL será integrado.
 
--   **Tecnologias Sugeridas**: **Prisma** (como ORM) e **MySQL2** (driver Node.js).
 -   **Plano de Ação**:
     1.  **Configurar o Banco de Dados**: Instalar e configurar um servidor MySQL.
-    2.  **Definir o Schema**: Criar as tabelas `Users` e `Tasks` no banco de dados. O schema da tabela `Tasks` incluiria colunas como `id`, `title`, `description`, `isCompleted` e uma chave estrangeira `userId` para vincular a tarefa ao usuário.
-        ```sql
-        -- Exemplo de Schema
-        CREATE TABLE Users (
-            id VARCHAR(255) PRIMARY KEY,
-            name VARCHAR(255),
-            email VARCHAR(255) UNIQUE NOT NULL,
-            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        );
-
-        CREATE TABLE Tasks (
-            id VARCHAR(255) PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
-            description TEXT,
-            isCompleted BOOLEAN DEFAULT FALSE,
-            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            userId VARCHAR(255) NOT NULL,
-            FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE
-        );
-        ```
+    2.  **Definir o Schema**: Criar as tabelas `Users` e `Tasks` no banco de dados.
     3.  **Criar API Endpoints**: Desenvolver rotas de API no Next.js (em `app/api/tasks/...`) para lidar com as operações **CRUD** (Create, Read, Update, Delete).
     4.  **Atualizar o Frontend**: Modificar os componentes React para fazer chamadas a essas novas rotas de API em vez de interagir com o `localStorage`. Todas as funções (`addNewTask`, `removeTask`, `updateTask`) serão refatoradas para se comunicarem com o backend.
-````
