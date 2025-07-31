@@ -61,7 +61,7 @@ export function Task({
   const handleCancel = () => {
     setIsEditing(false);
     setEditedName(name);
-    setEditedDescription(name);
+    setEditedDescription(description);
   };
 
   /**

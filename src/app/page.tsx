@@ -67,9 +67,7 @@ export default function Home() {
    * Press Enter to save the Task
    * @param event
    */
-  function handleKeyDown(
-    event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ): void {
+  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
     if (event.key === 'Enter') {
       event.preventDefault();
       addNewTask();
@@ -99,7 +97,6 @@ export default function Home() {
           <textarea
             value={descriptionValue}
             onChange={(e) => setDescriptionValue(e.target.value)}
-            onKeyDown={handleKeyDown}
             placeholder="Descrição (opcional)"
             className="w-full mt-2 focus:outline-none text-sm text-[#5e4b45] h-16 resize-none"
           />
