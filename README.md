@@ -3,8 +3,7 @@
 Um aplicativo simples e moderno de lista de tarefas construído com Next.js, React e TypeScript. Permite que os usuários gerenciem suas tarefas diárias de forma eficiente, salvando os dados diretamente no navegador através do `localStorage`.
 
 ### Clique para assistir o vídeo de uso da aplicação
-[![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)]([https://youtu.be/ID_DO_SEU_VIDEO](https://](https://youtu.be/NoIxocZwrCQ)))
-
+![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)]([https://youtu.be/ID_DO_SEU_VIDEO](https://](https://youtu.be/NoIxocZwrCQ)
 
 ---
 
