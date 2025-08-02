@@ -4,7 +4,7 @@ Um aplicativo simples e moderno de lista de tarefas construído com Next.js, Rea
 
 ### Clique para assistir o vídeo de uso da aplicação
 
-[![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)([https://youtu.be/ID_DO_SEU_VIDEO](https://](https://youtu.be/NoIxocZwrCQ)]
+[![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)(https://](https://youtu.be/NoIxocZwrCQ)]
 
 ---
 
