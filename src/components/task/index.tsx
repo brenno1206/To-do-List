@@ -23,7 +23,7 @@ interface TaskProps extends TaskPrototype {
  * @returns Task
  */
 export function Task({
-  index,
+  idTask,
   name,
   description,
   onRemove,
@@ -52,7 +52,7 @@ export function Task({
    * Save the editing values
    */
   const handleSave = () => {
-    onUpdate(index, editedName, editedDescription);
+    onUpdate(idTask, editedName, editedDescription);
     setIsEditing(false);
   };
   /**
@@ -122,7 +122,7 @@ export function Task({
         </div>
         <div className="flex items-center">
           <button
-            onClick={() => onRemove(index)}
+            onClick={() => onRemove(idTask)}
             className="p-1 text-red-200 hover:text-red-400 transition-colors"
           >
             <IconCircleMinus size={20} />

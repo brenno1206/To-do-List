@@ -2,7 +2,7 @@
  * Default task's version
  */
 export interface TaskPrototype {
-  index: string;
+  idTask: string;
   name: string;
   description: string;
 }

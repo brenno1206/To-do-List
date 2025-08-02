@@ -5,64 +5,110 @@ import { TaskPrototype } from '@/types/tasks';
 import { IconCirclePlus } from '@tabler/icons-react';
 import { useState, KeyboardEvent, useEffect } from 'react';
 
-const LOCAL_STORAGE_KEY = 'minhas-tasks';
-
 export default function Home() {
   const [tasks, setTasks] = useState<TaskPrototype[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [descriptionValue, setDescriptionValue] = useState('');
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
-  }, [tasks]);
-
   /**
-   * Add new Task to the list if the name isn't empty
+   * GET Tasks
+   */
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch('api/tasks/');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data: TaskPrototype[] = await response.json();
+
+        const formattedTasks = data.map((task) => ({
+          idTask: task.idTask.toString(),
+          name: task.name,
+          description: task.description,
+        }));
+
+        setTasks(formattedTasks);
+      } catch (error) {
+        console.error('Failed to fetch tasks:', error);
+      }
+    };
+    fetchTasks();
+  }, []);
+  /**
+   * Add new Task t if the name isn't empty
    * @returns
    */
-  function addNewTask(): void {
+  async function addNewTask() {
     if (inputValue.trim() === '') return;
-    const newTask: TaskPrototype = {
-      index: crypto.randomUUID(),
-      name: inputValue.trim(),
-      description: descriptionValue.trim(),
-    };
-    setTasks([...tasks, newTask]);
-    setInputValue('');
-    setDescriptionValue('');
+
+    const response = await fetch('/api/tasks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: inputValue,
+        description: descriptionValue,
+      }),
+    });
+
+    if (response.ok) {
+      const newTask = await response.json();
+      setTasks((prevTasks) => [...prevTasks, newTask]);
+      setInputValue('');
+      setDescriptionValue('');
+    } else {
+      console.error('Failed to create task');
+    }
   }
+
   /**
    * Remove a task by id
-   * @param id
+   * @param idToRemove
    */
-  function removeTask(id: string): void {
-    const updatedTasks = tasks.filter((task) => task.index !== id);
-    setTasks(updatedTasks);
+  async function removeTask(idToRemove: string) {
+    const response = await fetch(`/api/tasks/${idToRemove}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      setTasks((prevTasks) =>
+        prevTasks.filter((task) => task.idTask !== idToRemove),
+      );
+    } else {
+      console.error('Failed to delete task');
+    }
   }
 
   /**
    * Update a task (Name or Description) by id
-   * @param id
+   * @param idToUpdate
    * @param newName
    * @param newDescription
    */
-  function updateTask(id: string, newName: string, newDescription: string) {
-    const updatedTasks = tasks.map((task) => {
-      if (task.index === id) {
-        return { ...task, name: newName, description: newDescription };
-      }
-      return task;
+  async function updateTask(
+    idToUpdate: string,
+    newName: string,
+    newDescription: string,
+  ) {
+    const response = await fetch(`/api/tasks/${idToUpdate}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: newName, description: newDescription }),
     });
-    setTasks(updatedTasks);
-  }
 
+    if (response.ok) {
+      // Atualiza a tarefa no estado local
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.idTask === idToUpdate
+            ? { ...task, name: newName, description: newDescription }
+            : task,
+        ),
+      );
+    } else {
+      console.error('Failed to update task');
+    }
+  }
   /**
    * Press Enter to save the Task
    * @param event
@@ -102,10 +148,10 @@ export default function Home() {
           />
         </div>
         <div className="w-full">
-          {tasks.map((task) => (
+          {tasks.map((task, index) => (
             <Task
-              key={task.index}
-              index={task.index}
+              key={index}
+              idTask={task.idTask}
               name={task.name}
               description={task.description}
               onRemove={removeTask}

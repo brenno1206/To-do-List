@@ -3,6 +3,7 @@
 Um aplicativo simples e moderno de lista de tarefas construído com Next.js, React e TypeScript. Permite que os usuários gerenciem suas tarefas diárias de forma eficiente, salvando os dados diretamente no navegador através do `localStorage`.
 
 ### Clique para assistir o vídeo de uso da aplicação
+
 [![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)([https://youtu.be/ID_DO_SEU_VIDEO](https://](https://youtu.be/NoIxocZwrCQ)]
 
 ---
@@ -24,8 +25,6 @@ Um aplicativo simples e moderno de lista de tarefas construído com Next.js, Rea
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
 - **Estilização**: [Tailwind CSS](https://tailwindcss.com/)
-- **Ícones**: [Tabler Icons](https://tabler-icons.io/)
-- **Fonte**: [Geist](https://vercel.com/font)
 
 ---
 
@@ -64,6 +63,7 @@ Inicie o servidor de desenvolvimento:
 ```bash
 npm run dev
 ```
+
 ---
 
 ## Futuras Implementações
@@ -74,18 +74,18 @@ O projeto atual utiliza `localStorage` para simplicidade. Os próximos passos en
 
 Para garantir que cada usuário tenha sua própria lista de tarefas privada, a autenticação será adicionada.
 
--   **Plano de Ação**:
-    1.  Integrar um provedor de autenticação (email/senha).
-    2.  Criar rotas de login, cadastro e logout.
-    3.  Proteger as páginas da aplicação para que apenas usuários autenticados possam acessar e gerenciar suas tarefas.
-    4.  Associar cada tarefa a um `userId`.
+- **Plano de Ação**:
+  1.  Integrar um provedor de autenticação (email/senha).
+  2.  Criar rotas de login, cadastro e logout.
+  3.  Proteger as páginas da aplicação para que apenas usuários autenticados possam acessar e gerenciar suas tarefas.
+  4.  Associar cada tarefa a um `userId`.
 
 ### 2. Armazenamento com Banco de Dados MySQL
 
 Para substituir o `localStorage` e permitir que os dados sejam persistidos de forma segura e acessíveis de qualquer dispositivo, um banco de dados MySQL será integrado.
 
--   **Plano de Ação**:
-    1.  **Configurar o Banco de Dados**: Instalar e configurar um servidor MySQL.
-    2.  **Definir o Schema**: Criar as tabelas `Users` e `Tasks` no banco de dados.
-    3.  **Criar API Endpoints**: Desenvolver rotas de API no Next.js (em `app/api/tasks/...`) para lidar com as operações **CRUD** (Create, Read, Update, Delete).
-    4.  **Atualizar o Frontend**: Modificar os componentes React para fazer chamadas a essas novas rotas de API em vez de interagir com o `localStorage`. Todas as funções (`addNewTask`, `removeTask`, `updateTask`) serão refatoradas para se comunicarem com o backend.
+- **Plano de Ação**:
+  1.  **Configurar o Banco de Dados**: Instalar e configurar um servidor MySQL.
+  2.  **Definir o Schema**: Criar as tabelas `Users` e `Tasks` no banco de dados.
+  3.  **Criar API Endpoints**: Desenvolver rotas de API no Next.js (em `app/api/tasks/...`) para lidar com as operações **CRUD** (Create, Read, Update, Delete).
+  4.  **Atualizar o Frontend**: Modificar os componentes React para fazer chamadas a essas novas rotas de API em vez de interagir com o `localStorage`. Todas as funções (`addNewTask`, `removeTask`, `updateTask`) serão refatoradas para se comunicarem com o backend.
