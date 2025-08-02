@@ -1,8 +1,15 @@
 import { NextResponse, NextRequest } from 'next/server';
 import pool from '@/lib/db';
 import { ResultSetHeader } from 'mysql2';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../auth/[...nextauth]/route';
 
 export async function PUT(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const id = request.nextUrl.pathname.split('/').pop();
 
@@ -36,6 +43,11 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const id = request.nextUrl.pathname.split('/').pop();
 

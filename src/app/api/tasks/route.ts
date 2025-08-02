@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { ResultSetHeader } from 'mysql2';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]/route';
 import { TaskPrototype } from '@/types/tasks';
 
 export async function GET() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const [rows] = await pool.query(
       'SELECT idTask, name, description FROM Task',
@@ -19,6 +27,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const { name, description } = await request.json();
 
@@ -28,13 +41,13 @@ export async function POST(request: Request) {
         { status: 400 },
       );
     }
-    // NOTA: idUser está fixo como 1. No futuro, isso virá de um sistema de autenticação.
+
     const query =
-      'INSERT INTO Task (name, description, User_idUser) VALUES (?, ?, ?)';
+      'INSERT INTO Task (name, description, idUser) VALUES (?, ?, ?)';
     const [result] = await pool.query<ResultSetHeader>(query, [
       name,
       description,
-      1,
+      session.user.id,
     ]);
 
     const newTaskId = result.insertId;
