@@ -1,7 +1,7 @@
 interface InputProps {
   type: string;
   value: string;
-  functionClick: (e: any) => void;
+  functionClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
 }
 
