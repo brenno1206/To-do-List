@@ -17,3 +17,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer components {
+  .submit {
+    @apply w-full rounded-md bg-[#473733] px-4 py-2 font-semibold text-white transition-colors hover:bg-[#372723];
+  }
+  .title {
+    @apply text-center text-2xl font-bold text-white;
+  }
+  .background {
+    @apply flex min-h-screen flex-col items-center justify-center bg-[#473733] p-4;
+  }
+}

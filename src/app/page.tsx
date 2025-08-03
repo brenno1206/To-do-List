@@ -5,11 +5,10 @@ import { TaskPrototype } from '@/types/tasks';
 import { IconCirclePlus } from '@tabler/icons-react';
 import { useState, KeyboardEvent, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { RegisterLink } from '@/components/RegisterLink';
+import { LoginButton } from '@/components/LoginButton';
 
 export default function Home() {
-  const router = useRouter();
   const [tasks, setTasks] = useState<TaskPrototype[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [descriptionValue, setDescriptionValue] = useState('');
@@ -50,32 +49,17 @@ export default function Home() {
 
   if (!session) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-[#473733] ">
+      <main className="background">
         <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-10 text-center shadow-md">
-          <h1 className="text-2xl font-bold text-white">
-            Bem-vindo(a) ao To-Do List!
-          </h1>
+          <h1 className="title">Bem-vindo(a) ao To-Do List!</h1>
           <p className="text-white">
             Para começar a organizar suas tarefas, por favor, faça o login ou
             crie uma conta.
           </p>
           <div>
-            <button
-              onClick={() => router.push('/login')}
-              className="w-full rounded-md bg-[#473733] px-6 py-2 font-semibold text-white transition-transform hover:scale-105 hover:bg-[#372723]"
-            >
-              Ir para Login
-            </button>
+            <LoginButton />
           </div>
-          <p className="text-center text-sm text-white">
-            Novo por aqui?{' '}
-            <Link
-              href="/register"
-              className="font-medium hover:underline text-blue-100 hover:text-blue-300 "
-            >
-              Crie sua conta
-            </Link>
-          </p>
+          <RegisterLink />
         </div>
       </main>
     );
@@ -168,7 +152,7 @@ export default function Home() {
   return (
     <>
       {/** CRIAR COMPONENTE HEADER */}
-      <main className="mt-30 flex flex-col bg-blue">
+      <main className="mt-30 flex flex-col">
         <div className="mb-10 w-full max-w-sm mx-auto p-4 border rounded-lg bg-[#eeeeee]">
           <div className="flex items-center border-b-2 pb-2">
             <input
@@ -207,9 +191,9 @@ export default function Home() {
         </div>
       </main>
       {/** CRIAR COMPONENTE FOOTER */}
-      <footer className="absolute bottom-0">
-        <p className="text-white">Logado como {session.user?.email}</p>
-        <button className="text-white" onClick={() => signOut()}>
+      <footer className="absolute bottom-0 bg-[#5e4b45] w-full justify-around gap-3 flex p-2">
+        <p className="text-[#eeeeee]">Logado como {session.user?.email}</p>
+        <button className="text-[#eeeeee]" onClick={() => signOut()}>
           Sair
         </button>
       </footer>
