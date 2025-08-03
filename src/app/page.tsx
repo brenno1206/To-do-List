@@ -7,6 +7,8 @@ import { useState, KeyboardEvent, useEffect } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { RegisterLink } from '@/components/RegisterLink';
 import { LoginButton } from '@/components/LoginButton';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
 
 export default function Home() {
   const [tasks, setTasks] = useState<TaskPrototype[]>([]);
@@ -49,19 +51,23 @@ export default function Home() {
 
   if (!session) {
     return (
-      <main className="background">
-        <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-10 text-center shadow-md">
-          <h1 className="title">Bem-vindo(a) ao To-Do List!</h1>
-          <p className="text-white">
-            Para começar a organizar suas tarefas, por favor, faça o login ou
-            crie uma conta.
-          </p>
-          <div>
-            <LoginButton />
+      <>
+        <Header />
+        <main className="background">
+          <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-10 text-center shadow-md">
+            <h1 className="title">Bem-vindo(a) ao To-Do List!</h1>
+            <p className="text-white">
+              Para começar a organizar suas tarefas, por favor, faça o login ou
+              crie uma conta.
+            </p>
+            <div>
+              <LoginButton />
+            </div>
+            <RegisterLink />
           </div>
-          <RegisterLink />
-        </div>
-      </main>
+        </main>
+        <Footer />
+      </>
     );
   }
 
@@ -152,7 +158,8 @@ export default function Home() {
   return (
     <>
       {/** CRIAR COMPONENTE HEADER */}
-      <main className="mt-30 flex flex-col">
+      <Header buttonFunction={() => signOut()} />
+      <main className="mt-15 flex flex-col">
         <div className="mb-10 w-full max-w-sm mx-auto p-4 border rounded-lg bg-[#eeeeee]">
           <div className="flex items-center border-b-2 pb-2">
             <input
@@ -190,13 +197,7 @@ export default function Home() {
           ))}
         </div>
       </main>
-      {/** CRIAR COMPONENTE FOOTER */}
-      <footer className="absolute bottom-0 bg-[#5e4b45] w-full justify-around gap-3 flex p-2">
-        <p className="text-[#eeeeee]">Logado como {session.user?.email}</p>
-        <button className="text-[#eeeeee]" onClick={() => signOut()}>
-          Sair
-        </button>
-      </footer>
+      <Footer email={session.user?.email as string} />
     </>
   );
 }

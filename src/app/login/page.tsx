@@ -2,10 +2,11 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Input } from '@/components/Input';
 import { SubmitButton } from '@/components/SubmitButton';
 import { RegisterLink } from '@/components/RegisterLink';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -31,28 +32,34 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="background">
-      <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-8 shadow-md">
-        <h2 className="title">Login</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            functionClick={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-            type="email"
-            value={email}
-          />
-          <Input
-            functionClick={(e) => setPassword(e.target.value)}
-            placeholder="Senha"
-            type="password"
-            value={password}
-          />
+    <>
+      <Header />
+      <main className="background">
+        <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-8 shadow-md">
+          <h2 className="title">Login</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Input
+              functionClick={(e) => setEmail(e.target.value)}
+              placeholder="E-mail"
+              type="email"
+              value={email}
+            />
+            <Input
+              functionClick={(e) => setPassword(e.target.value)}
+              placeholder="Senha"
+              type="password"
+              value={password}
+            />
 
-          {error && <p className="text-center text-sm text-red-500">{error}</p>}
-          <SubmitButton>Entrar</SubmitButton>
-        </form>
-        <RegisterLink />
-      </div>
-    </main>
+            {error && (
+              <p className="text-center text-sm text-red-500">{error}</p>
+            )}
+            <SubmitButton>Entrar</SubmitButton>
+          </form>
+          <RegisterLink />
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
