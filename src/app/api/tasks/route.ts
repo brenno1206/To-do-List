@@ -14,8 +14,10 @@ export async function GET() {
 
   try {
     const [rows] = await pool.query(
-      'SELECT idTask, name, description FROM Task',
+      'SELECT idTask, name, description FROM Task WHERE idUser = ?',
+      [session.user.id],
     );
+
     return NextResponse.json(rows);
   } catch (error) {
     console.error('Failed ro fetch tasks: ', error);

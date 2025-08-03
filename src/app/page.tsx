@@ -50,28 +50,28 @@ export default function Home() {
 
   if (!session) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50">
-        <div className="w-full max-w-md space-y-6 rounded-lg bg-white p-10 text-center shadow-md">
-          <h1 className="text-2xl font-bold text-gray-800">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-[#473733] ">
+        <div className="w-full max-w-md space-y-6 rounded-lg bg-[#5e4b45] p-10 text-center shadow-md">
+          <h1 className="text-2xl font-bold text-white">
             Bem-vindo(a) ao To-Do List!
           </h1>
-          <p className="text-gray-600">
+          <p className="text-white">
             Para começar a organizar suas tarefas, por favor, faça o login ou
             crie uma conta.
           </p>
           <div>
             <button
               onClick={() => router.push('/login')}
-              className="w-full rounded-md bg-blue-600 px-6 py-2 font-semibold text-white transition-transform hover:scale-105"
+              className="w-full rounded-md bg-[#473733] px-6 py-2 font-semibold text-white transition-transform hover:scale-105 hover:bg-[#372723]"
             >
               Ir para Login
             </button>
           </div>
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-white">
             Novo por aqui?{' '}
             <Link
               href="/register"
-              className="font-medium text-blue-600 hover:underline"
+              className="font-medium hover:underline text-blue-100 hover:text-blue-300 "
             >
               Crie sua conta
             </Link>
@@ -168,8 +168,8 @@ export default function Home() {
   return (
     <>
       {/** CRIAR COMPONENTE HEADER */}
-      <main className="mt-30 flex flex-col">
-        <div className="mb-10 w-full max-w-sm mx-auto p-4 border rounded-lg shadow-xl shadow-gray-200 bg-white">
+      <main className="mt-30 flex flex-col bg-blue">
+        <div className="mb-10 w-full max-w-sm mx-auto p-4 border rounded-lg bg-[#eeeeee]">
           <div className="flex items-center border-b-2 pb-2">
             <input
               type="text"
@@ -208,8 +208,10 @@ export default function Home() {
       </main>
       {/** CRIAR COMPONENTE FOOTER */}
       <footer className="absolute bottom-0">
-        <p>Logado como {session.user?.email}</p>
-        <button onClick={() => signOut()}>Sair</button>
+        <p className="text-white">Logado como {session.user?.email}</p>
+        <button className="text-white" onClick={() => signOut()}>
+          Sair
+        </button>
       </footer>
     </>
   );
