@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import pool from '@/lib/db';
 import { ResultSetHeader } from 'mysql2';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 export async function PUT(request: NextRequest) {
   const session = await getServerSession(authOptions);
