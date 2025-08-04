@@ -4,7 +4,9 @@ Uma aplicação completa de lista de tarefas desenvolvida com Next.js, TypeScrip
 
 ## 📸 Demonstração
 
-> **Recomendação:** Grave um GIF curto da aplicação funcionando, mostrando o cadastro, login, criação e edição de tarefas. Use uma ferramenta como [ScreenToGif](https://www.screentogif.com/) (Windows) ou [Giphy Capture](https://giphy.com/apps/giphycapture) (macOS), salve o arquivo como `demo.gif` na pasta `public` do seu projeto e substitua a linha abaixo.
+<div align="center">
+  <img src="./public/demo.gif" alt="Demonstração da Aplicação To-Do List" width="800"/>
+</div>
 
 ## 📖 Tabela de Conteúdos
 
@@ -24,85 +26,93 @@ A arquitetura foi construída seguindo as melhores práticas, com foco em segura
 
 ## ✨ Principais Funcionalidades
 
--   ✅ **Autenticação Segura de Usuários**: Sistema completo de Cadastro e Login.
--   🔒 **Proteção de Senhas**: As senhas são criptografadas com `bcryptjs` antes de serem armazenadas, garantindo que nunca sejam expostas em texto puro.
--   🛡️ **Gerenciamento de Sessão**: Sessões seguras gerenciadas com NextAuth.js (Auth.js), utilizando JSON Web Tokens (JWT).
--   📝 **CRUD Completo de Tarefas**: Usuários autenticados podem Criar, Ler, Atualizar e Deletar suas próprias tarefas.
--   🔐 **Isolamento de Dados e API Protegida**: As rotas da API validam a sessão a cada requisição, garantindo que um usuário só possa acessar seus próprios dados.
+- ✅ **Autenticação Segura de Usuários**: Sistema completo de Cadastro e Login.
+- 🔒 **Proteção de Senhas**: As senhas são criptografadas com `bcryptjs` antes de serem armazenadas, garantindo que nunca sejam expostas em texto puro.
+- 🛡️ **Gerenciamento de Sessão**: Sessões seguras gerenciadas com NextAuth.js (Auth.js), utilizando JSON Web Tokens (JWT).
+- 📝 **CRUD Completo de Tarefas**: Usuários autenticados podem Criar, Ler, Atualizar e Deletar suas próprias tarefas.
+- 🔐 **Isolamento de Dados e API Protegida**: As rotas da API validam a sessão a cada requisição, garantindo que um usuário só possa acessar seus próprios dados.
 
 ## 🚀 Stack de Tecnologias
 
 #### Frontend:
--   **Framework:** Next.js (com App Router)
--   **Linguagem:** TypeScript
--   **Estilização:** Tailwind CSS
--   **UI:** React
+
+- **Framework:** Next.js (com App Router)
+- **Linguagem:** TypeScript
+- **Estilização:** Tailwind CSS
+- **UI:** React
 
 #### Backend:
--   **API:** Next.js API Routes
--   **Autenticação:** NextAuth.js
--   **Segurança:** bcryptjs
+
+- **API:** Next.js API Routes
+- **Autenticação:** NextAuth.js
+- **Segurança:** bcryptjs
 
 #### Banco de Dados:
--   **SGBD:** MySQL
--   **Driver:** mysql2 (Node.js)
+
+- **SGBD:** MySQL
+- **Driver:** mysql2 (Node.js)
 
 #### Infraestrutura e Deploy:
--   **Aplicação:** Vercel
--   **Banco de Dados:** TiDB Cloud
+
+- **Aplicação:** Vercel
+- **Banco de Dados:** TiDB Cloud
 
 ## 🔧 Como Executar Localmente
 
 Siga os passos abaixo para configurar e rodar o projeto na sua máquina.
 
 **Pré-requisitos:**
--   Node.js (v18 ou superior)
--   Um servidor MySQL local ou uma conta gratuita no TiDB Cloud.
+
+- Node.js (v18 ou superior)
+- Um servidor MySQL local ou uma conta gratuita no TiDB Cloud.
 
 **Passos:**
 
 1.  **Clone o repositório:**
+
     ```bash
     git clone [https://github.com/brenno1206/To-do-List.git](https://github.com/brenno1206/To-do-List.git)
     cd To-do-List
     ```
 
 2.  **Instale as dependências:**
+
     ```bash
     npm install
     ```
 
 3.  **Configure o Banco de Dados:**
-    -   Conecte-se ao seu servidor MySQL e crie um novo banco de dados (schema).
-    -   Execute os scripts SQL abaixo para criar as tabelas `User` e `Task`.
-        <details>
-        <summary>Clique para ver os comandos SQL</summary>
+    - Conecte-se ao seu servidor MySQL e crie um novo banco de dados (schema).
+    - Execute os scripts SQL abaixo para criar as tabelas `User` e `Task`.
+      <details>
+      <summary>Clique para ver os comandos SQL</summary>
 
-        ```sql
-        CREATE TABLE User (
-          idUser INT NOT NULL AUTO_INCREMENT,
-          name VARCHAR(255) NOT NULL,
-          email VARCHAR(255) NOT NULL,
-          password VARCHAR(255) NOT NULL,
-          PRIMARY KEY (idUser)
-        );
+      ```sql
+      CREATE TABLE User (
+        idUser INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        PRIMARY KEY (idUser)
+      );
 
-        CREATE TABLE Task (
-          idTask INT NOT NULL AUTO_INCREMENT,
-          name VARCHAR(255) NOT NULL,
-          description TINYTEXT NULL,
-          idUser INT NOT NULL,
-          PRIMARY KEY (idTask),
-          CONSTRAINT fk_Task_User
-            FOREIGN KEY (idUser)
-            REFERENCES User(idUser)
-        );
-        ```
-        </details>
+      CREATE TABLE Task (
+        idTask INT NOT NULL AUTO_INCREMENT,
+        name VARCHAR(255) NOT NULL,
+        description TINYTEXT NULL,
+        idUser INT NOT NULL,
+        PRIMARY KEY (idTask),
+        CONSTRAINT fk_Task_User
+          FOREIGN KEY (idUser)
+          REFERENCES User(idUser)
+      );
+      ```
+
+      </details>
 
 4.  **Configure as Variáveis de Ambiente:**
-    -   Crie um arquivo chamado `.env.local` na raiz do projeto.
-    -   Copie e cole o conteúdo abaixo, preenchendo com suas credenciais:
+    - Crie um arquivo chamado `.env.local` na raiz do projeto.
+    - Copie e cole o conteúdo abaixo, preenchendo com suas credenciais:
 
     ```ini
     # Credenciais do Banco de Dados (exemplo para banco local)
@@ -117,10 +127,10 @@ Siga os passos abaixo para configurar e rodar o projeto na sua máquina.
     ```
 
 5.  **Rode a aplicação em modo de desenvolvimento:**
-    ```bash
-    npm run dev
-    ```
-Acesse [http://localhost:3000](http://localhost:3000) para ver a aplicação.
+    `bash
+npm run dev
+`
+    Acesse [http://localhost:3000](http://localhost:3000) para ver a aplicação.
 
 ## ☁️ Deploy
 
