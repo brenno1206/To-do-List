@@ -1,91 +1,163 @@
-# To-Do List App
 
-Um aplicativo simples e moderno de lista de tarefas construído com Next.js, React e TypeScript. Permite que os usuários gerenciem suas tarefas diárias de forma eficiente, salvando os dados diretamente no navegador através do `localStorage`.
+<div align="center">
+    
+# To-Do List Full-Stack com Autenticação
+Uma aplicação completa de lista de tarefas desenvolvida com Next.js, TypeScript e MySQL. Este projeto demonstra a criação de uma aplicação full-stack segura, desde a autenticação de usuários até o gerenciamento de dados em um ambiente de produção.
 
-### Clique para assistir o vídeo de uso da aplicação
+</div>
 
-[![Assista ao vídeo](https://img.youtube.com/vi/NoIxocZwrCQ/maxresdefault.jpg)](https://youtu.be/NoIxocZwrCQ)
+## 📸 Demonstração
+Recomendação: Grave um GIF curto da aplicação funcionando, mostrando o cadastro, login, criação e edição de tarefas. Use uma ferramenta como ScreenToGif (Windows) ou Giphy Capture (macOS), salve o arquivo como demo.gif na pasta public do seu projeto e substitua a linha abaixo.
 
----
+## 📖 Tabela de Conteúdos
 
-## Funcionalidades
+<ul>
+    <li>Sobre o Projeto</li>
+    <li>Principais Funcionalidades</li>
+    <li>Stack de Tecnologias</li>
+    <li>Como executar localmente</li>
+    <li>Deploy</li>
+    <li>Licença</li>
+</ul>
 
-- **Adicionar Tarefas**: Crie novas tarefas com um título e uma descrição opcional.
-- **Editar Tarefas**: Modifique o título e a descrição de tarefas existentes.
-- **Remover Tarefas**: Exclua tarefas da lista.
-- **Marcar como Concluída**: Marque tarefas como finalizadas com um efeito visual de "riscado".
-- **Expandir Detalhes**: Visualize a descrição completa de uma tarefa.
-- **Design Responsivo**: Interface limpa e funcional em diferentes tamanhos de tela.
-- **Persistência de Dados**: As tarefas são salvas no `localStorage` do navegador, para que não se percam ao recarregar a página.
+## 📌 Sobre o Projeto
+Este não é apenas um simples "To-Do List". É um projeto full-stack robusto projetado para demonstrar competências essenciais no desenvolvimento web moderno. A aplicação permite que múltiplos usuários criem contas seguras para gerenciar suas listas de tarefas pessoais. Os dados de cada usuário são completamente isolados, garantindo privacidade e segurança.
+A arquitetura foi construída seguindo as melhores práticas, com foco em segurança, escalabilidade e uma experiência de usuário fluida.
 
----
+## ✨ Principais Funcionalidades
+<ul>
+    <li>✅ Autenticação Segura de Usuários: Sistema completo de Cadastro e Login.</li>
+    <li>🔒 Proteção de Senhas: As senhas são criptografadas com bcryptjs antes de serem armazenadas, garantindo que nunca sejam expostas em texto puro.</li>
+    <li>🛡️ Gerenciamento de Sessão: Sessões seguras gerenciadas com NextAuth.js (Auth.js), utilizando JSON Web Tokens (JWT).</li>
+    <li>📝 CRUD Completo de Tarefas: Usuários autenticados podem Criar, Ler, Atualizar e Deletar suas próprias tarefas.</li>
+    <li>🔐 Isolamento de Dados e API Protegida: As rotas da API validam a sessão a cada requisição, garantindo que um usuário só possa acessar seus próprios dados.</li>
+    <li>📱 Design Responsivo: Interface construída com Tailwind CSS, totalmente adaptável para desktops e dispositivos móveis.</li>
+</ul>
 
-## Tecnologias Utilizadas
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Linguagem**: [TypeScript](https://www.typescriptlang.org/)
-- **Estilização**: [Tailwind CSS](https://tailwindcss.com/)
+## 🚀 Stack de Tecnologias
 
----
+<ul>
+    <li> Frontend:
+        <ul></ul>
+    </li>
+    <li> Backend:
+        <ul></ul>
+    </li>
+    <li> Banco de dados:
+        <ul></ul>
+    </li> 
+    <li> Infraestrutura e Deploy
+        <ul></ul>
+    </li>
+</ul>
+Frontend:
 
-## Como Executar o Projeto
+Next.js (com App Router)
 
-Siga os passos abaixo para rodar o projeto em seu ambiente local.
+React
 
-### **Pré-requisitos**
+TypeScript
 
-- [Node.js](https://nodejs.org/en/) (versão 18 ou superior)
-- Um gerenciador de pacotes como [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/) ou [pnpm](https://pnpm.io/)
+Tailwind CSS
 
-### **Instalação**
+Backend:
 
-1.  Clone o repositório:
+Next.js API Routes
 
-    ```bash
-    git clone https://github.com/brenno1206/To-do-List.git
-    ```
+NextAuth.js
 
-2.  Navegue até o diretório do projeto:
+bcryptjs
 
-    ```bash
-    cd seu-repositorio
-    ```
+Banco de Dados:
 
-3.  Instale as dependências:
-    ```bash
-    npm install
-    ```
+MySQL
 
-### **Executando a Aplicação**
+mysql2 (Driver Node.js)
 
-Inicie o servidor de desenvolvimento:
+Infraestrutura e Deploy:
 
-```bash
+Aplicação: Vercel
+
+Banco de Dados: TiDB Cloud (Compatível com MySQL)
+
+## 🔧 Como Executar Localmente
+Siga os passos abaixo para configurar e rodar o projeto na sua máquina.
+
+Pré-requisitos:
+
+Node.js (v18 ou superior)
+
+Um servidor MySQL local ou uma conta gratuita no TiDB Cloud.
+
+Passos:
+
+Clone o repositório:
+
+Bash
+git clone https://github.com/brenno1206/To-do-List.git
+cd To-do-List
+Instale as dependências:
+
+Bash
+npm install
+Configure o Banco de Dados:
+
+Conecte-se ao seu servidor MySQL.
+
+Crie um novo banco de dados (schema).
+
+Execute os scripts SQL abaixo para criar as tabelas User e Task.
+
+<details>
+<summary>Clique para ver os comandos SQL</summary>
+
+SQL
+CREATE TABLE User (
+  idUser INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  PRIMARY KEY (idUser)
+);
+
+CREATE TABLE Task (
+  idTask INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description TINYTEXT NULL,
+  idUser INT NOT NULL,
+  PRIMARY KEY (idTask),
+  CONSTRAINT fk_Task_User
+    FOREIGN KEY (idUser)
+    REFERENCES User(idUser)
+);
+</details>
+
+Configure as Variáveis de Ambiente:
+
+Crie um arquivo chamado .env.local na raiz do projeto.
+
+Copie e cole o conteúdo abaixo, preenchendo com suas credenciais:
+
+Ini, TOML
+### Credenciais do Banco de Dados (exemplo para banco local)
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=sua_senha
+DB_DATABASE=nome_do_seu_banco
+
+### Chaves do NextAuth.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=gere_uma_chave_secreta_aqui_com_o_comando_openssl
+Rode a aplicação em modo de desenvolvimento:
+
+Bash
 npm run dev
-```
+Acesse http://localhost:3000 para ver a aplicação.
 
----
+## ☁️ Deploy
+A aplicação está configurada para deploy contínuo na Vercel. O banco de dados de produção está hospedado no TiDB Cloud. Cada push para a branch main aciona um novo deploy automaticamente.
 
-## Futuras Implementações
+## 📄 Licença
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-O projeto atual utiliza `localStorage` para simplicidade. Os próximos passos envolvem a implementação de um backend robusto com banco de dados e autenticação de usuários.
-
-### 1. Autenticação de Usuários
-
-Para garantir que cada usuário tenha sua própria lista de tarefas privada, a autenticação será adicionada.
-
-- **Plano de Ação**:
-  1.  Integrar um provedor de autenticação (email/senha).
-  2.  Criar rotas de login, cadastro e logout.
-  3.  Proteger as páginas da aplicação para que apenas usuários autenticados possam acessar e gerenciar suas tarefas.
-  4.  Associar cada tarefa a um `userId`.
-
-### 2. Armazenamento com Banco de Dados MySQL
-
-Para substituir o `localStorage` e permitir que os dados sejam persistidos de forma segura e acessíveis de qualquer dispositivo, um banco de dados MySQL será integrado.
-
-- **Plano de Ação**:
-  1.  **Configurar o Banco de Dados**: Instalar e configurar um servidor MySQL.
-  2.  **Definir o Schema**: Criar as tabelas `Users` e `Tasks` no banco de dados.
-  3.  **Criar API Endpoints**: Desenvolver rotas de API no Next.js (em `app/api/tasks/...`) para lidar com as operações **CRUD** (Create, Read, Update, Delete).
-  4.  **Atualizar o Frontend**: Modificar os componentes React para fazer chamadas a essas novas rotas de API em vez de interagir com o `localStorage`. Todas as funções (`addNewTask`, `removeTask`, `updateTask`) serão refatoradas para se comunicarem com o backend.
