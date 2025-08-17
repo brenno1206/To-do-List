@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'; // ✅ Adicione a importação do NextAuth aqui
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import pool from '@/lib/db';
